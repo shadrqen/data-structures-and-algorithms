@@ -49,4 +49,15 @@ describe('Singly Linked List', () => {
 
     expect(sll.getDataAtPosition(positionToRemove)).not.toBe(dataToInsertFirst)
   })
+
+  it('Reverses a linked list', () => {
+    const sll = new SinglyLinkedList(null)
+    const dataToInsertFirst = 100
+    const dataToInsertLast = 300
+
+    sll.insertAtTheBeginning(dataToInsertFirst)
+    sll.insertAtTheEnd(dataToInsertLast)
+
+    expect(sll.getDataAtPosition(0, sll.reverseList())).toBe(dataToInsertLast)
+  })
 })
