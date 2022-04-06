@@ -1,9 +1,14 @@
+
 export interface SinglyNode {
   data?: number
-  next?: SinglyNode
+  next?: SinglyNode | null
 }
 
+export type SinglyNodeUnion = SinglyNode | null
+
 export interface SinglyList {
-  head: SinglyNode
+  head: SinglyNodeUnion
   size: number
 }
+
+export type DataAtPosition = number | null
