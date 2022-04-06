@@ -4,7 +4,7 @@ import {
   SinglyNode,
   SinglyNodeUnion
 }
-  from '~/types/linked-lists'
+  from '~/types/LinkedList'
 
 export class Node implements SinglyNode {
   data: number
@@ -27,6 +27,7 @@ export class SinglyLinkedList implements SinglyList {
 
   insertAtTheBeginning (data: number) {
     this.head = new Node(data, this.head)
+    this.size++
   }
 
   insertAtTheEnd (data: number) {
@@ -62,5 +63,33 @@ export class SinglyLinkedList implements SinglyList {
     }
 
     return data
+  }
+
+  insertAtIndex (data: number, index: number): void {
+    if (index > 0 && index > this.size) {
+      return
+    }
+
+    if (index === 0) {
+      this.insertAtTheBeginning(data)
+    }
+
+    let current: SinglyNode = this.head as SinglyNode
+    let previous: SinglyNode = {}
+
+    let count: number = 0
+
+    while (count < index) {
+      previous = current
+      current = current.next as SinglyNode
+      count++
+    }
+
+    const node = new Node(data, null)
+
+    previous.next = node as SinglyNode
+    node.next = current
+
+    this.size++
   }
 }

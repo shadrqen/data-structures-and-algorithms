@@ -1,4 +1,3 @@
-
 export interface SinglyNode {
   data?: number
   next?: SinglyNode | null
