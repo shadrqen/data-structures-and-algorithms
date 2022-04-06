@@ -92,4 +92,34 @@ export class SinglyLinkedList implements SinglyList {
 
     this.size++
   }
+
+  removeAtIndex (index: number) {
+    if (index > 0 && index > this.size) {
+      return
+    }
+
+    if (this.size === 1) {
+      this.head = null
+    } else {
+      let current: SinglyNode = this.head as SinglyNode
+      let previous: SinglyNode = {}
+
+      if (index === 0) {
+        this.head = current.next as SinglyNode
+        return
+      }
+
+      let count = 0
+
+      while (count < index) {
+        previous = current
+        current = current.next as SinglyNode
+        count++
+      }
+
+      previous.next = current.next
+
+      this.size--
+    }
+  }
 }

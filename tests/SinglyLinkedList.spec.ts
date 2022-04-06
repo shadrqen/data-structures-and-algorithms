@@ -36,4 +36,17 @@ describe('Singly Linked List', () => {
 
     expect(sll.getDataAtPosition(indexData.position)).toBe(indexData.data)
   })
+
+  it('Removes at a given index', () => {
+    const sll = new SinglyLinkedList(null)
+    const dataToInsertFirst = 100
+    const dataToInsertLast = 900
+    const positionToRemove = 0
+
+    sll.insertAtTheBeginning(dataToInsertFirst)
+    sll.insertAtTheEnd(dataToInsertLast)
+    sll.removeAtIndex(positionToRemove)
+
+    expect(sll.getDataAtPosition(positionToRemove)).not.toBe(dataToInsertFirst)
+  })
 })
