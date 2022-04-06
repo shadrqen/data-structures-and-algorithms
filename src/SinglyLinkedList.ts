@@ -25,12 +25,12 @@ export class SinglyLinkedList implements SinglyList {
     this.size = 0
   }
 
-  insertAtTheBeginning (data: number) {
+  insertAtTheBeginning (data: number): void {
     this.head = new Node(data, this.head)
     this.size++
   }
 
-  insertAtTheEnd (data: number) {
+  insertAtTheEnd (data: number): void {
     if (!this.head) {
       this.head = new Node(data, null)
     } else {
@@ -43,12 +43,12 @@ export class SinglyLinkedList implements SinglyList {
     this.size++
   }
 
-  getDataAtPosition (index: number): DataAtPosition {
+  getDataAtPosition (index: number, list: SinglyNode = this.head as SinglyNode): DataAtPosition {
     if (index > this.size) {
       return null
     }
 
-    let current: SinglyNode = this.head as SinglyNode
+    let current: SinglyNode = list as SinglyNode
 
     let count: number = 0
 
@@ -93,7 +93,7 @@ export class SinglyLinkedList implements SinglyList {
     this.size++
   }
 
-  removeAtIndex (index: number) {
+  removeAtIndex (index: number): void {
     if (index > 0 && index > this.size) {
       return
     }
@@ -121,5 +121,20 @@ export class SinglyLinkedList implements SinglyList {
 
       this.size--
     }
+  }
+
+  reverseList (): SinglyNode {
+    let current: SinglyNode = this.head as SinglyNode
+    let previous: SinglyNode = {}
+    let tmp: SinglyNode = {}
+
+    while (current) {
+      tmp = current.next as SinglyNode
+      current.next = previous
+      previous = current
+      current = tmp
+    }
+
+    return previous
   }
 }
