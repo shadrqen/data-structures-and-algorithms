@@ -1,6 +1,6 @@
 import { SinglyList, SinglyNode } from '../types/linked-lists'
 
-class Node implements SinglyNode {
+export class Node implements SinglyNode {
   data: number
   next: SinglyNode
 
@@ -10,11 +10,11 @@ class Node implements SinglyNode {
   }
 }
 
-class SinglyLinkedList implements SinglyList {
+export class SinglyLinkedList implements SinglyList {
   head: SinglyNode
   size: number
 
-  constructor (head: SinglyNode = null) {
+  constructor (head: SinglyNode = {}) {
     this.head = head
     this.size = 0
   }
@@ -23,13 +23,3 @@ class SinglyLinkedList implements SinglyList {
     this.head = new Node(data, this.head)
   }
 }
-
-const sll = new SinglyLinkedList()
-
-sll.insertFirst(200)
-
-console.log('----------------------------------')
-
-console.log(sll)
-
-console.log('----------------------------------')
