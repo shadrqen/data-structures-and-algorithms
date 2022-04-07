@@ -72,6 +72,7 @@ export class SinglyLinkedList implements SinglyList {
 
     if (index === 0) {
       this.insertAtTheBeginning(data)
+      return
     }
 
     let current: SinglyNode = this.head as SinglyNode

@@ -34,7 +34,9 @@ describe('Singly Linked List', () => {
     sll.insertAtTheEnd(dataToInsertLast)
     sll.insertAtIndex(indexData.data, indexData.position)
 
+    expect(sll.getDataAtPosition(0)).toBe(dataToInsertFirst)
     expect(sll.getDataAtPosition(indexData.position)).toBe(indexData.data)
+    expect(sll.getDataAtPosition(2)).toBe(dataToInsertLast)
   })
 
   it('Removes at a given index', () => {
