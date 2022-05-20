@@ -12,10 +12,10 @@
  * @param {array[][]} nums
  */
 
-export function threeSum (nums: number[]): number[] | number[][] {
+export function threeSum (nums: number[]) {
   if (nums.length > 2) {
-    let count = 0
-    const sumArray = []
+    let count: number = 0
+    const sumArray: number[][] = []
     const coveredIndices: number[] = []
     while (count < nums.length) {
       let layer2Count = count + 1
@@ -34,9 +34,18 @@ export function threeSum (nums: number[]): number[] | number[][] {
       }
       count++
     }
-    console.log(sumArray)
     return sumArray
   } else {
-    return []
+    return [[]]
   }
+}
+
+export const sort2DArray = (arr: number[][]) : number[] => {
+  /**
+   * First break the array from 2D to 1D
+   * Then sort the resulting array
+   */
+  return arr.reduce(function (prev, next) {
+    return prev.concat(next)
+  }).sort((a, b) => a - b)
 }
