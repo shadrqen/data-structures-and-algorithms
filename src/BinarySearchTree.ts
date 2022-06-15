@@ -58,11 +58,11 @@ export class BinarySearchTree {
       }
     }
 
-    remove (value: number) {
-      this.root = this.removeNode(this.root, value)
+    remove (value: number, removalType: string = 'successor') {
+      this.root = this.removeNode(this.root, value, removalType)
     }
 
-    removeNode (node: BSTNode | null, value: number) : BSTNode | null {
+    removeNode (node: BSTNode | null, value: number, removalType: string = 'successor') : BSTNode | null {
       if (!node) {
         return null
       } else if (value < node.value) {
@@ -89,8 +89,41 @@ export class BinarySearchTree {
         }
 
         // deleting node with two children
-        /* TODO: to continue from here */
+        return this.inorderPredeSuccessor(removalType, node)
       }
-      return null
+    }
+
+    // inserts either in in-order successor or predecessor
+    inorderPredeSuccessor (removalType: string, node: BSTNode) : BSTNode {
+      if (removalType === 'successor') {
+        const minRightNode = this.findMinRightNode(node.right as BSTNode)
+        // replace the value of the current (to be replaced) with the minimum value in the right sub-tree
+        node.value = minRightNode.value
+        // then remove the minimum right node
+        node.right = this.removeNode(node.right, minRightNode.value)
+      } else {
+        const maxLeftNode = this.findMaxLeftNode(node.left as BSTNode)
+        // replace the value of the current (to be replaced) with the maximum value in the left sub-tree
+        node.value = maxLeftNode.value
+        // then remove the maximum left node
+        node.left = this.removeNode(node.left, maxLeftNode.value)
+      }
+      return node
+    }
+
+    // find the minimum node on the right sub-tree
+    findMinRightNode (node: BSTNode): BSTNode {
+      if (!node.left) {
+        return node
+      }
+      return this.findMinRightNode(node.left)
+    }
+
+    // find the maximum node on the left sub-tree
+    findMaxLeftNode (node: BSTNode): BSTNode {
+      if (!node.right) {
+        return node
+      }
+      return this.findMaxLeftNode(node.right)
     }
 }
