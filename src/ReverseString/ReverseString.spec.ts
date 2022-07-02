@@ -1,4 +1,4 @@
-import { reverseString } from '~/src/ReverseString'
+import { reverseString } from '~/src/ReverseString/ReverseString'
 
 describe('Reverse String', function () {
   it('should reverse string', () => {

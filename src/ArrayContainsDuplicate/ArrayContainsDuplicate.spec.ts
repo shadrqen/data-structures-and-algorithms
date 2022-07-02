@@ -1,4 +1,4 @@
-import { arrayContainsDuplicates } from '~/src/ArrayContainsDuplicate'
+import { arrayContainsDuplicates } from '~/src/ArrayContainsDuplicate/ArrayContainsDuplicate'
 
 describe('ArrayContainsDuplicate', function () {
   it('should return false when array contains no duplicates', () => {
