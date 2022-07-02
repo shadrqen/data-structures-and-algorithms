@@ -1,4 +1,4 @@
-import { maxProfit } from '~/src/BuySellStocks'
+import { maxProfit } from '~/src/Stocks/BuySellStocks'
 
 describe('Buying and Selling Stocks for Max Profit', () => {
   it('Should return the maximum profit achievable by buying and selling stocks', () => {

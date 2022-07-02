@@ -1,4 +1,4 @@
-import { SinglyLinkedList } from '~/src/SinglyLinkedList'
+import { SinglyLinkedList } from '~/src/SinglyLinkedList/SinglyLinkedList'
 
 describe('Singly Linked List', () => {
   it('Inserts element at the beginning', () => {

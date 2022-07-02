@@ -1,4 +1,4 @@
-import { DoublyLinkedList } from '~/src/DoublyLinkedList'
+import { DoublyLinkedList } from '~/src/DoublyLinkedList/DoublyLinkedList'
 
 describe('Doubly Linked List', () => {
   it('should prepend to the linked list', () => {

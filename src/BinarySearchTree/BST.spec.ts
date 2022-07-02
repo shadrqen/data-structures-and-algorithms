@@ -1,4 +1,4 @@
-import { BinarySearchTree } from '~/src/BinarySearchTree'
+import { BinarySearchTree } from '~/src/BinarySearchTree/BinarySearchTree'
 
 describe('should insert data', function () {
   it('should insert data when the tree is empty', () => {

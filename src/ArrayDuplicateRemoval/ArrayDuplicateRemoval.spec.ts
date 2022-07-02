@@ -1,4 +1,4 @@
-import { removeDuplicates } from '~/src/ArrayDuplicateRemoval'
+import { removeDuplicates } from '~/src/ArrayDuplicateRemoval/ArrayDuplicateRemoval'
 
 describe('Array Duplicates Removal', () => {
   it('should remove duplicates in-place given an integer array nums sorted in non-decreasing order', () => {
