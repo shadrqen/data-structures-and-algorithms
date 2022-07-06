@@ -1,17 +1,19 @@
+import { BSTInterface, BSTNodeUnion } from '~/types/Trees'
+
 class BSTNode {
-    public left: BSTNode | null
-    public right: BSTNode | null
+    public left: BSTNodeUnion
+    public right: BSTNodeUnion
     public value: number
 
-    constructor (value: number, left: BSTNode | null = null, right: BSTNode | null = null) {
+    constructor (value: number, left: BSTNodeUnion = null, right: BSTNodeUnion = null) {
       this.left = left
       this.right = right
       this.value = value
     }
 }
 
-export class BST {
-    public root: BSTNode | null
+export class BST implements BSTInterface {
+    public root: BSTNodeUnion
     public inOrderTraversedValues: number[]
     public preOrderTraversedValues: number[]
     public postOrderTraversedValues: number[]
@@ -23,7 +25,7 @@ export class BST {
       this.postOrderTraversedValues = []
     }
 
-    public insert (value: number) {
+    public insert (value: number): void {
       if (this.root) {
         this.insertWNE(this.root, value)
       } else {
@@ -31,7 +33,7 @@ export class BST {
       }
     }
 
-    public insertWNE (node: BSTNode, value: number) {
+    public insertWNE (node: BSTNode, value: number): void {
       if (value < node.value) {
         if (node.left) {
           this.insertWNE(node.left, value)
@@ -47,7 +49,7 @@ export class BST {
       }
     }
 
-    public search (node: BSTNode | null, value: number) : boolean {
+    public search (node: BSTNodeUnion, value: number) : boolean {
       if (!node) {
         return false
       }
@@ -60,11 +62,11 @@ export class BST {
       }
     }
 
-    public remove (value: number, sucessorPredecessor: string | null = null) {
-      return this.removeNode(this.root as BSTNode, value, sucessorPredecessor)
+    public remove (value: number, sucessorOrPredecessor: string | null = null): BSTNodeUnion {
+      return this.removeNode(this.root as BSTNode, value, sucessorOrPredecessor)
     }
 
-    private removeNode (node: BSTNode | null, value: number, sucessorOrPredecessor: string | null): BSTNode | null {
+    private removeNode (node: BSTNodeUnion, value: number, sucessorOrPredecessor: string | null): BSTNodeUnion {
       const nodeExists: boolean = this.search(this.root, value)
       if (nodeExists) {
         if (!node) {
@@ -95,13 +97,13 @@ export class BST {
       }
     }
 
-    private successorPredecessor (node: BSTNode, choice: string | null = null): BSTNode | null {
-      if (!choice) {
+    private successorPredecessor (node: BSTNode, removalType: string | null = 'predecessor'): BSTNodeUnion {
+      if (removalType === 'predecessor') {
         const maxLeftNode = this.findMaxLeftNode(node.left as BSTNode)
 
         node.value = maxLeftNode.value
 
-        node.left = this.removeNode(node.left, maxLeftNode.value, choice)
+        node.left = this.removeNode(node.left, maxLeftNode.value, removalType)
 
         return node
       } else {
@@ -109,7 +111,7 @@ export class BST {
 
         node.value = minRightNode.value
 
-        node.right = this.removeNode(node.right, minRightNode.value, choice)
+        node.right = this.removeNode(node.right, minRightNode.value, removalType)
         return node
       }
     }
@@ -131,7 +133,7 @@ export class BST {
     }
 
     /* Start with left node, then root and finally right node */
-    public inorderTraversal (node: BSTNode | null) {
+    public inorderTraversal (node: BSTNodeUnion): void {
       if (node) {
         this.inorderTraversal(node.left)
         // console.log(node.value)
@@ -141,7 +143,7 @@ export class BST {
     }
 
     /* Start with root, then left node and finally right node */
-    public preorderTraversal (node: BSTNode | null) {
+    public preorderTraversal (node: BSTNodeUnion): void {
       if (node) {
         this.preOrderTraversedValues.push(node.value)
         this.preorderTraversal(node.left)
@@ -150,11 +152,52 @@ export class BST {
     }
 
     /* Start with left node, then right node and finally root */
-    public postorderTraversal (node: BSTNode | null) {
+    public postorderTraversal (node: BSTNodeUnion): void {
       if (node) {
         this.postorderTraversal(node.left)
         this.postorderTraversal(node.right)
         this.postOrderTraversedValues.push(node.value)
+      }
+    }
+
+    /* A breadth-first search approach to traversing the tree */
+    public bfs (node: BSTNodeUnion, calllback: Function): void {
+      /*
+      * 1. Initialize queue
+      * 2. Push current node (root) to the queue
+      * 3. While length of queue > 0
+      *     i. shift queue (fast in) and store shifted item
+      *     ii. print item value
+      *     iii. if (item.left and item.right are null) continue
+      *     iv. push item.left && item.right to queue
+      *     v. repeat from i.
+      * */
+      if (node) {
+        const queue: BSTNode[] = [node]
+
+        while (queue.length > 0) {
+          /* Remove the first added node from the queue and store as current item */
+          const item: BSTNode = queue.shift() as BSTNode
+
+          calllback(item.value)
+
+          /* Terminates execution of the remaining statements
+          * in the current iteration and continues with the next
+          * iteration in the while loop */
+          if (!item.left && !item.right) {
+            continue
+          }
+
+          /* Push the left node to the queue */
+          if (item.left) {
+            queue.push(item.left)
+          }
+
+          /* Push the right node to the queue */
+          if (item.right) {
+            queue.push(item.right)
+          }
+        }
       }
     }
 }

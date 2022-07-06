@@ -84,4 +84,11 @@ describe('BST', function () {
     /* TODO: To integrate the test below
     * expect(bst.postOrderTraversedValues).toEqual([4, 6, 7, 9, 10, 12, 8]) */
   })
+  it('run breadth-first traversal', () => {
+    const bst = createBST([8, 7, 4, 9, 6, 10, 12])
+
+    bst.bfs(bst.root, () => {})
+
+    /* TODO: To finalize on the BFS tests */
+  })
 })
