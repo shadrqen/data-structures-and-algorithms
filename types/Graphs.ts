@@ -6,3 +6,12 @@ export interface GraphInterface {
     printGraph(): void
     bfs(startingVertex: string): void
 }
+
+export interface AdjacencyMatrix {
+    size: number
+    matrix: number[][]
+    addEdge(vertex1: number, vertex2: number, weight: number): void
+    removeEdge(vertex1: number, vertex2: number): void
+    addVertex(): void
+    removeVertex(vertex: number): void
+}
