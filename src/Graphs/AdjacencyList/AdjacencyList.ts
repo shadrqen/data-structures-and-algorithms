@@ -22,10 +22,12 @@ export class Graph implements GraphInterface {
     this.noOfVertices += 1
   }
 
-  public addEdge (vertex1: string, vertex2: string): void {
+  public addEdge (vertex1: string, vertex2: string, directed: boolean = true): void {
     this.adjacentList.get(vertex1).push(vertex2)
 
-    this.adjacentList.get(vertex2).push(vertex1)
+    if (!directed) {
+      this.adjacentList.get(vertex2).push(vertex1)
+    }
   }
 
   public printGraph (): void {
@@ -35,26 +37,41 @@ export class Graph implements GraphInterface {
   }
 
   public bfs (startingVertex: string) {
-    const visitedNode: Map<any, any> = new Map()
+    if (this.adjacentList.has(startingVertex)) {
+      /* Create a set of visited nodes to keep track of the ones we've
+      * already visited */
+      const visitedNode: Set<string> = new Set()
 
-    const queue = []
+      /* A queue to traverse in a breadth-first/FIFO manner */
+      const queue: string[] = []
 
-    visitedNode.set(startingVertex, true)
+      visitedNode.add(startingVertex)
 
-    queue.push(startingVertex)
+      /* Start with the starting vertex */
+      queue.push(startingVertex)
 
-    console.log(queue)
+      /* Loop until the queue is empty (no more connected nodes) */
+      while (queue.length > 0) {
+        /* Shift (remove) the first element into the queue
+        * and use it as the current node. Will the startingVertex at the
+        * beginning */
+        const currentNode: string = queue.shift() as string
 
-    while (queue.length > 0) {
-      const queueElement = queue.shift()
+        console.log(currentNode)
 
-      console.log(queueElement)
+        /* Get the neighbours */
+        const neighbours: string[] = this.adjacentList.get(currentNode)
 
-      const getList = this.adjacentList.get(queueElement)
-
-      for (const [key, value] of getList) {
-        console.log(key, value)
-        queue.shift()
+        /* Get the neighbours sequentially (as they follow one another) */
+        for (const neighbour of neighbours) {
+          /* If a neighbour is yet to be visited, visit him/her */
+          if (!visitedNode.has(neighbour)) {
+            /* Push the neighbour into the queue so that he/she
+            * will be processed */
+            queue.push(neighbour)
+            visitedNode.add(neighbour)
+          }
+        }
       }
     }
   }
