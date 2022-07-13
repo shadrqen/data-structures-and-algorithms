@@ -136,7 +136,6 @@ export class BST implements BSTInterface {
     public inorderTraversal (node: BSTNodeUnion): void {
       if (node) {
         this.inorderTraversal(node.left)
-        // console.log(node.value)
         this.inOrderTraversedValues.push(node.value)
         this.inorderTraversal(node.right)
       }
