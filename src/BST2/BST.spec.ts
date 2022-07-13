@@ -73,22 +73,22 @@ describe('BST', function () {
 
     bst.preorderTraversal(bst.root)
 
-    /* TODO: To integrate the test below
-    * expect(bst.preOrderTraversedValues).toEqual([8, 4, 6, 7, 9, 10, 12]) */
+    expect(bst.preOrderTraversedValues).toEqual([8, 7, 4, 6, 9, 10, 12])
   })
   it('executes postorder traversal', () => {
     const bst = createBST([8, 7, 4, 9, 6, 10, 12])
 
     bst.postorderTraversal(bst.root)
 
-    /* TODO: To integrate the test below
-    * expect(bst.postOrderTraversedValues).toEqual([4, 6, 7, 9, 10, 12, 8]) */
+    expect(bst.postOrderTraversedValues).toEqual([6, 4, 7, 12, 10, 9, 8])
   })
   it('run breadth-first traversal', () => {
-    const bst = createBST([8, 7, 4, 9, 6, 10, 12])
+    const bst: BST = createBST([8, 7, 4, 9, 6, 10, 12])
 
-    bst.bfs(bst.root, () => {})
+    const breadthFirstValues: number[] = []
 
-    /* TODO: To finalize on the BFS tests */
+    bst.bfs(bst.root, (traversedItem: number) => { breadthFirstValues.push(traversedItem) })
+
+    expect(breadthFirstValues).toEqual([8, 7, 9, 4, 10, 6, 12])
   })
 })
